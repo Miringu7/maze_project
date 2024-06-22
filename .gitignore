@@ -1,0 +1,15 @@
+# Ignore object files and libraries
+*.o
+*.a
+*.so
+
+#ignore binary files
+bin/*
+
+# ignore temporary files
+*~
+
+#ignore build directories
+obj/
+build/
+bin/
