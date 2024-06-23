@@ -8,31 +8,39 @@ void updateCameraPosition(double moveSpeed)
     // Move forward/backward along the direction vector dirX, dirY
     if (keystates[SDL_SCANCODE_W])
     {
-        if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0)
-            posX += dirX * moveSpeed;
-        if (worldMap[(int)posX][(int)(posY + dirY * moveSpeed)] == 0)
-            posY += dirY * moveSpeed;
+        double nextX = posX + dirX * moveSpeed;
+        double nextY = posY + dirY * moveSpeed;
+        if (worldMap[(int)nextX][(int)posY] == 0)
+            posX = nextX;
+        if (worldMap[(int)posX][(int)nextY] == 0)
+            posY = nextY;
     }
     if (keystates[SDL_SCANCODE_S])
     {
-        if (worldMap[(int)(posX - dirX * moveSpeed)][(int)posY] == 0)
-            posX -= dirX * moveSpeed;
-        if (worldMap[(int)posX][(int)(posY - dirY * moveSpeed)] == 0)
-            posY -= dirY * moveSpeed;
+        double nextX = posX - dirX * moveSpeed;
+        double nextY = posY - dirY * moveSpeed;
+        if (worldMap[(int)nextX][(int)posY] == 0)
+            posX = nextX;
+        if (worldMap[(int)posX][(int)nextY] == 0)
+            posY = nextY;
     }
     // Move left/right perpendicular to the direction vector
     if (keystates[SDL_SCANCODE_A])
     {
-        if (worldMap[(int)(posX - planeX * moveSpeed)][(int)posY] == 0)
-            posX -= planeX * moveSpeed;
-        if (worldMap[(int)posX][(int)(posY - planeY * moveSpeed)] == 0)
-            posY -= planeY * moveSpeed;
+        double nextX = posX - planeX * moveSpeed;
+        double nextY = posY - planeY * moveSpeed;
+        if (worldMap[(int)nextX][(int)posY] == 0)
+            posX = nextX;
+        if (worldMap[(int)posX][(int)nextY] == 0)
+            posY = nextY;
     }
     if (keystates[SDL_SCANCODE_D])
     {
-        if (worldMap[(int)(posX + planeX * moveSpeed)][(int)posY] == 0)
-            posX += planeX * moveSpeed;
-        if (worldMap[(int)posX][(int)(posY + planeY * moveSpeed)] == 0)
-            posY += planeY * moveSpeed;
+        double nextX = posX + planeX * moveSpeed;
+        double nextY = posY + planeY * moveSpeed;
+        if (worldMap[(int)nextX][(int)posY] == 0)
+            posX = nextX;
+        if (worldMap[(int)posX][(int)nextY] == 0)
+            posY = nextY;
     }
 }
