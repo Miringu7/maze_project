@@ -5,6 +5,20 @@ SDL_Window *gWindow = NULL;
 SDL_Renderer *gRenderer = NULL;
 TTF_Font *gFont = NULL;
 
+// Function to rotate the camera
+void rotateCamera(double angle)
+{
+    // Rotate direction vector
+    double oldDirX = dirX;
+    dirX = dirX * cos(angle) - dirY * sin(angle);
+    dirY = oldDirX * sin(angle) + dirY * cos(angle);
+
+    // Rotate camera plane vector
+    double oldPlaneX = planeX;
+    planeX = planeX * cos(angle) - planeY * sin(angle);
+    planeY = oldPlaneX * sin(angle) + planeY * cos(angle);
+}
+
 int main(int argc, char *args[])
 {
     (void)argc;
@@ -16,6 +30,10 @@ int main(int argc, char *args[])
         fprintf(stderr, "Failed to initialize!\n");
         return -1;
     }
+
+    // SDL_EnableKeyRepeat(0, 0);
+
+    // rotateCamera(3.142 / 4);
 
     bool quit = false;
     SDL_Event e;
@@ -32,9 +50,14 @@ int main(int argc, char *args[])
 
         while (SDL_PollEvent(&e) != 0)
         {
-            if (e.type == SDL_QUIT)
+            switch (e.type)
             {
+                // exit if the window is closed
+            case SDL_QUIT:
                 quit = true;
+                break;
+            default:
+                break;
             }
         }
 

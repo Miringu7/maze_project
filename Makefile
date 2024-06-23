@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic `sdl2-config --cflags`
-LDFLAGS = `sdl2-config --libs` -lSDL2_ttf
+LDFLAGS = `sdl2-config --libs` -lSDL2_ttf -lm
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
