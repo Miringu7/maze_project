@@ -5,20 +5,6 @@ SDL_Window *gWindow = NULL;
 SDL_Renderer *gRenderer = NULL;
 TTF_Font *gFont = NULL;
 
-// Function to rotate the camera
-void rotateCamera(double angle)
-{
-    // Rotate direction vector
-    double oldDirX = dirX;
-    dirX = dirX * cos(angle) - dirY * sin(angle);
-    dirY = oldDirX * sin(angle) + dirY * cos(angle);
-
-    // Rotate camera plane vector
-    double oldPlaneX = planeX;
-    planeX = planeX * cos(angle) - planeY * sin(angle);
-    planeY = oldPlaneX * sin(angle) + planeY * cos(angle);
-}
-
 int main(int argc, char *args[])
 {
     (void)argc;
@@ -50,14 +36,37 @@ int main(int argc, char *args[])
 
         while (SDL_PollEvent(&e) != 0)
         {
-            switch (e.type)
+            if (e.type == SDL_QUIT)
             {
-                // exit if the window is closed
-            case SDL_QUIT:
                 quit = true;
-                break;
-            default:
-                break;
+            }
+            else if (e.type == SDL_KEYDOWN)
+            {
+                if (e.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    quit = true;
+                }
+                // Handle rotation here (Task 2)
+                if (e.key.keysym.sym == SDLK_LEFT)
+                {
+                    // rotate left
+                    double oldDirX = dirX;
+                    dirX = dirX * cos(0.1) - dirY * sin(0.1);
+                    dirY = oldDirX * sin(0.1) + dirY * cos(0.1);
+                    double oldPlaneX = planeX;
+                    planeX = planeX * cos(0.1) - planeY * sin(0.1);
+                    planeY = oldPlaneX * sin(0.1) + planeY * cos(0.1);
+                }
+                else if (e.key.keysym.sym == SDLK_RIGHT)
+                {
+                    // rotate right
+                    double oldDirX = dirX;
+                    dirX = dirX * cos(-0.1) - dirY * sin(-0.1);
+                    dirY = oldDirX * sin(-0.1) + dirY * cos(-0.1);
+                    double oldPlaneX = planeX;
+                    planeX = planeX * cos(-0.1) - planeY * sin(-0.1);
+                    planeY = oldPlaneX * sin(-0.1) + planeY * cos(-0.1);
+                }
             }
         }
 

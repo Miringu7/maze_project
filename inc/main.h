@@ -10,10 +10,13 @@
 #include <SDL2/SDL_ttf.h>
 
 // Constants
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 #define MAP_WIDTH 24
 #define MAP_HEIGHT 24
+
+// Buffer for rendering
+// Uint32 buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
 // #define M_PI 3.14159265
 
 // Structures
@@ -45,5 +48,6 @@ TTF_Font *loadFont(const char *filePath, int fontSize);
 SDL_Surface *renderTextSurface(TTF_Font *font, const char *text, SDL_Color textColor);
 SDL_Texture *createTextureFromSurface(SDL_Renderer *renderer, SDL_Surface *surface);
 void renderFPS(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont);
+void updateCameraPosition(double moveSpeed);
 
 #endif
