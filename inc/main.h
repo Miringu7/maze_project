@@ -52,5 +52,6 @@ SDL_Texture *createTextureFromSurface(SDL_Renderer *renderer, SDL_Surface *surfa
 void renderFPS(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont);
 void updateCameraPosition(double moveSpeed);
 void loadMap(const char *filename);
+void drawMinimap(SDL_Renderer *renderer);
 
 #endif

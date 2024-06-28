@@ -24,6 +24,9 @@ void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont)
     // Render FPS
     renderFPS(frameTime, gRenderer, gFont);
 
+    // draw minimap
+    drawMinimap(gRenderer);
+
     // Present everything
     SDL_RenderPresent(gRenderer);
 }

@@ -9,6 +9,12 @@
 #define COLOR_GROUND \
     (ColorRGB) { 139, 69, 19 } // Brown
 
+#define MINIMAP_SCALE 5
+#define MINIMAP_WIDTH (MAP_WIDTH * MINIMAP_SCALE)
+#define MINIMAP_HEIGHT (MAP_HEIGHT * MINIMAP_SCALE)
+#define MINIMAP_POS_X 10
+#define MINIMAP_POS_Y 10
+
 // Constants for textures
 // #define NUM_TEXTURES 8
 // #define texWidth 64
