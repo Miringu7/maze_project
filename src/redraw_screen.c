@@ -19,7 +19,7 @@ void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont)
 
     // Cast rays and render walls
     castRays(gRenderer);
-    updateCameraPosition(moveSpeed);
+    // updateCameraPosition(moveSpeed, worldMap);
 
     // Render FPS
     renderFPS(frameTime, gRenderer, gFont);

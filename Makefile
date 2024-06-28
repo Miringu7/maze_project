@@ -6,13 +6,14 @@ OBJDIR = obj
 BINDIR = bin
 TARGET = $(BINDIR)/maze_project
 
+
 SRC = $(wildcard $(SRCDIR)/*.c)
 OBJ = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
 
 all: $(TARGET)
 
 run: all
-	./$(TARGET)
+	./$(TARGET) ./src/map.txt
 
 $(TARGET): $(OBJ)
 	@mkdir -p $(BINDIR)

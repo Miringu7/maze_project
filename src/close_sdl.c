@@ -2,21 +2,24 @@
 
 void closeSDL(SDL_Window *gWindow, SDL_Renderer *gRenderer, TTF_Font *gFont)
 {
-    if (gFont) {
+    if (gFont)
+    {
         TTF_CloseFont(gFont);
         gFont = NULL;
     }
 
-    if (gRenderer) {
+    if (gRenderer)
+    {
         SDL_DestroyRenderer(gRenderer);
         gRenderer = NULL;
     }
 
-    if (gWindow) {
+    if (gWindow)
+    {
         SDL_DestroyWindow(gWindow);
         gWindow = NULL;
     }
 
-    TTF_Quit();
+       TTF_Quit();
     SDL_Quit();
 }

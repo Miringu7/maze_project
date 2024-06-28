@@ -10,18 +10,22 @@ void updateCameraPosition(double moveSpeed)
     {
         double nextX = posX + dirX * moveSpeed;
         double nextY = posY + dirY * moveSpeed;
-        if (worldMap[(int)nextX][(int)posY] == 0)
+
+        // Check if the next position is within bounds and is walkable
+        if ((int)nextX >= 0 && (int)nextX < MAP_WIDTH && (int)posY >= 0 && (int)posY < MAP_HEIGHT && worldMap[(int)nextX][(int)posY] == 0)
             posX = nextX;
-        if (worldMap[(int)posX][(int)nextY] == 0)
+        if ((int)posX >= 0 && (int)posX < MAP_WIDTH && (int)nextY >= 0 && (int)nextY < MAP_HEIGHT && worldMap[(int)posX][(int)nextY] == 0)
             posY = nextY;
     }
     if (keystates[SDL_SCANCODE_S])
     {
         double nextX = posX - dirX * moveSpeed;
         double nextY = posY - dirY * moveSpeed;
-        if (worldMap[(int)nextX][(int)posY] == 0)
+
+        // Check if the next position is within bounds and is walkable
+        if ((int)nextX >= 0 && (int)nextX < MAP_WIDTH && (int)posY >= 0 && (int)posY < MAP_HEIGHT && worldMap[(int)nextX][(int)posY] == 0)
             posX = nextX;
-        if (worldMap[(int)posX][(int)nextY] == 0)
+        if ((int)posX >= 0 && (int)posX < MAP_WIDTH && (int)nextY >= 0 && (int)nextY < MAP_HEIGHT && worldMap[(int)posX][(int)nextY] == 0)
             posY = nextY;
     }
     // Move left/right perpendicular to the direction vector
@@ -29,18 +33,22 @@ void updateCameraPosition(double moveSpeed)
     {
         double nextX = posX - planeX * moveSpeed;
         double nextY = posY - planeY * moveSpeed;
-        if (worldMap[(int)nextX][(int)posY] == 0)
+
+        // Check if the next position is within bounds and is walkable
+        if ((int)nextX >= 0 && (int)nextX < MAP_WIDTH && (int)posY >= 0 && (int)posY < MAP_HEIGHT && worldMap[(int)nextX][(int)posY] == 0)
             posX = nextX;
-        if (worldMap[(int)posX][(int)nextY] == 0)
+        if ((int)posX >= 0 && (int)posX < MAP_WIDTH && (int)nextY >= 0 && (int)nextY < MAP_HEIGHT && worldMap[(int)posX][(int)nextY] == 0)
             posY = nextY;
     }
     if (keystates[SDL_SCANCODE_D])
     {
         double nextX = posX + planeX * moveSpeed;
         double nextY = posY + planeY * moveSpeed;
-        if (worldMap[(int)nextX][(int)posY] == 0)
+
+        // Check if the next position is within bounds and is walkable
+        if ((int)nextX >= 0 && (int)nextX < MAP_WIDTH && (int)posY >= 0 && (int)posY < MAP_HEIGHT && worldMap[(int)nextX][(int)posY] == 0)
             posX = nextX;
-        if (worldMap[(int)posX][(int)nextY] == 0)
+        if ((int)posX >= 0 && (int)posX < MAP_WIDTH && (int)nextY >= 0 && (int)nextY < MAP_HEIGHT && worldMap[(int)posX][(int)nextY] == 0)
             posY = nextY;
     }
 }

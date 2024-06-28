@@ -3,6 +3,7 @@
 
 #include "globals.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <float.h>
 #include <stdbool.h>
@@ -35,6 +36,7 @@ typedef enum
 } WallOrientation;
 
 extern int worldMap[MAP_WIDTH][MAP_HEIGHT];
+// extern int **worldMap;
 
 // Function prototypes
 // bool initSDL(SDL_Window *gWindow, SDL_Renderer *gRenderer, TTF_Font *gFont);
@@ -49,5 +51,6 @@ SDL_Surface *renderTextSurface(TTF_Font *font, const char *text, SDL_Color textC
 SDL_Texture *createTextureFromSurface(SDL_Renderer *renderer, SDL_Surface *surface);
 void renderFPS(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont);
 void updateCameraPosition(double moveSpeed);
+void loadMap(const char *filename);
 
 #endif

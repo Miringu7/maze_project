@@ -7,8 +7,16 @@ TTF_Font *gFont = NULL;
 
 int main(int argc, char *args[])
 {
-    (void)argc;
-    (void)args;
+    //(void)argc;
+    //(void)args;
+    if (argc != 2)
+    {
+        fprintf(stderr, "Usage: %s <map file>\n", args[0]);
+        return 1;
+    }
+
+    const char *mapFile = args[1];
+    loadMap(mapFile);
 
     // if (!initSDL(gWindow, gRenderer, gFont))
     if (!initSDL())
@@ -71,6 +79,7 @@ int main(int argc, char *args[])
         }
 
         // redrawScreen(fps, gRenderer, gFont);
+        updateCameraPosition(moveSpeed);
         redrawScreen(frameTime, gRenderer, gFont);
 
         // if (frameTicks < 1000 / 60)
