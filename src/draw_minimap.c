@@ -1,5 +1,14 @@
 #include "../inc/main.h"
 
+/**
+ * drawMinimap - Draws a minimap of the game world.
+ * @renderer: The SDL renderer used for rendering.
+ *
+ * This function draws a minimap representation of the game world on the provided renderer.
+ * It uses colors to represent walls and empty spaces based on the `worldMap` data. Additionally,
+ * it marks the player's position with a red rectangle and draws a green line indicating the player's
+ * direction.
+ */
 void drawMinimap(SDL_Renderer *renderer)
 {
     // Draw the map
@@ -10,7 +19,7 @@ void drawMinimap(SDL_Renderer *renderer)
         {
             if (worldMap[i][j] > 0)
             {
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // wall color
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Wall color
             }
             else
             {
@@ -20,8 +29,9 @@ void drawMinimap(SDL_Renderer *renderer)
             SDL_RenderFillRect(renderer, &rect);
         }
     }
+
     // Draw player position on the map
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // color for player
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Color for player
     SDL_Rect playerRect = {MINIMAP_POS_X + (int)(posX * MINIMAP_SCALE) - 2, MINIMAP_POS_Y + (int)(posY * MINIMAP_SCALE) - 2, 4, 4};
     SDL_RenderFillRect(renderer, &playerRect);
 

@@ -1,4 +1,15 @@
 #include "../inc/main.h"
+
+/**
+ * loadMap - Loads the world map from a file
+ * @filename: The name of the file containing the map data
+ *
+ * Description: This function reads the world map data from a file and stores it
+ * in the global `worldMap` array. The file should contain integers representing
+ * the map tiles. Each integer is read into the corresponding position in the
+ * `worldMap` array.
+ * Return: void
+ */
 void loadMap(const char *filename)
 {
     FILE *file = fopen(filename, "r");

@@ -1,5 +1,16 @@
 #include "../inc/main.h"
 
+/**
+ * drawFloorAndCeiling - Draws the floor and ceiling textures on the screen.
+ * @renderer: The SDL renderer used for rendering.
+ * @floorTexture: The SDL texture used for the floor.
+ * @ceilingTexture: The SDL texture used for the ceiling.
+ *
+ * This function renders the floor and ceiling textures on the screen using raycasting
+ * calculations. It starts drawing from the middle of the screen to the bottom, calculating
+ * the position and texture coordinates for each pixel based on ray direction and player position.
+ * The textures are copied onto the renderer at their respective positions.
+ */
 void drawFloorAndCeiling(SDL_Renderer *renderer, SDL_Texture *floorTexture, SDL_Texture *ceilingTexture)
 {
     for (int y = SCREEN_HEIGHT / 2 + 1; y < SCREEN_HEIGHT; y++)
@@ -30,11 +41,13 @@ void drawFloorAndCeiling(SDL_Renderer *renderer, SDL_Texture *floorTexture, SDL_
             floorX += floorStepX;
             floorY += floorStepY;
 
+            // Rendering floor texture
             SDL_Rect floorSrcRect = {tx, ty, 1, 1};
             SDL_Rect floorDestRect = {x, y, 1, 1};
-            SDL_Rect ceilingDestRect = {x, SCREEN_HEIGHT - y - 1, 1, 1};
-
             SDL_RenderCopy(renderer, floorTexture, &floorSrcRect, &floorDestRect);
+
+            // Rendering ceiling texture
+            SDL_Rect ceilingDestRect = {x, SCREEN_HEIGHT - y - 1, 1, 1};
             SDL_RenderCopy(renderer, ceilingTexture, &floorSrcRect, &ceilingDestRect);
         }
     }

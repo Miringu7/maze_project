@@ -1,32 +1,31 @@
 #include "../inc/main.h"
 
+/**
+ * redrawScreen - Redraws the game screen
+ * @frameTime: Time elapsed per frame
+ * @gRenderer: The SDL_Renderer to draw on
+ * @gFont: The TTF_Font used for rendering text
+ * @wallTextures: Array of SDL_Textures for wall textures
+ * @weaponTextures: Array of SDL_Textures for weapon textures
+ *
+ * Description: This function redraws the entire game screen, including
+ * casting rays to render walls, rendering the FPS, drawing the minimap,
+ * and rendering the current weapon. It then presents the rendered frame
+ * to the screen.
+ * Return: void
+ */
 void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont, SDL_Texture **wallTextures, SDL_Texture *weaponTextures[])
 {
-    // castRays(gRenderer);
-    // renderFPS(frameTime, gRenderer, gFont);
-    // SDL_RenderPresent(gRenderer);
-    // SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
-    // SDL_RenderClear(gRenderer);
-
-    // Clear the renderer with the sky color
-    // SDL_SetRenderDrawColor(gRenderer, COLOR_SKY.r, COLOR_SKY.g, COLOR_SKY.b, 255);
-    // SDL_RenderClear(gRenderer);
-
-    // Draw ground
-    // SDL_SetRenderDrawColor(gRenderer, COLOR_GROUND.r, COLOR_GROUND.g, COLOR_GROUND.b, 255);
-    // SDL_Rect groundRect = {0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2};
-    // SDL_RenderFillRect(gRenderer, &groundRect);
-
     // Cast rays and render walls
     castRays(gRenderer, wallTextures);
-    // updateCameraPosition(moveSpeed, worldMap);
 
     // Render FPS
     renderFPS(frameTime, gRenderer, gFont);
 
-    // draw minimap
+    // Draw minimap
     drawMinimap(gRenderer);
 
+    // Render weapon
     renderWeapon(gRenderer, weaponTextures);
 
     // Present everything

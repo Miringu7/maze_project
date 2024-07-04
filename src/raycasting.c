@@ -1,5 +1,15 @@
 #include "../inc/main.h"
 
+/**
+ * castRays - Casts rays and renders walls using raycasting
+ * @gRenderer: The SDL_Renderer to draw on
+ * @wallTextures: Array of SDL_Textures for wall textures
+ *
+ * Description: This function casts rays from the player's position to detect walls,
+ * calculates the distance to the walls, and renders the walls on the screen using
+ * vertical lines. It uses raycasting to determine the distance and texture of the walls.
+ * Return: void
+ */
 void castRays(SDL_Renderer *gRenderer, SDL_Texture **wallTextures)
 {
     for (int x = 0; x < SCREEN_WIDTH; x++)
@@ -81,22 +91,18 @@ void castRays(SDL_Renderer *gRenderer, SDL_Texture **wallTextures)
         switch (worldMap[mapX][mapY])
         {
         case 1:
-            // color = (ColorRGB){255, 0, 0};
             color = (ColorRGB){255, 255, 255};
             break;
         case 2:
-            // color = (ColorRGB){0, 255, 0};
             color = (ColorRGB){255, 255, 255};
             break;
         case 3:
-            // color = (ColorRGB){0, 0, 255};
             color = (ColorRGB){255, 255, 255};
             break;
         case 4:
             color = (ColorRGB){255, 255, 255};
             break;
         default:
-            // color = (ColorRGB){255, 255, 0};
             color = (ColorRGB){255, 255, 255};
             break;
         }
@@ -108,14 +114,12 @@ void castRays(SDL_Renderer *gRenderer, SDL_Texture **wallTextures)
             color.b /= 2;
         }
 
-        // drawVerticalLine(x, drawStart, drawEnd, color, gRenderer);
         WallOrientation orientation;
         if (side == 0)
             orientation = EAST_WEST; // Facing east-west
         else
             orientation = NORTH_SOUTH; // Facing north-south
 
-        // drawVerticalLine(x, drawStart, drawEnd, color, gRenderer, orientation);
         drawVerticalLine(x, drawStart, drawEnd, gRenderer, orientation, color);
         SDL_Rect wallRect = {x, drawStart, 1, drawEnd - drawStart};
         SDL_RenderCopy(gRenderer, wallTextures[worldMap[mapX][mapY] - 1], NULL, &wallRect);

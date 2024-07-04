@@ -8,6 +8,7 @@ bin/*
 
 # ignore temporary files
 *~
+Betty.wiki
 
 #ignore build directories
 obj/

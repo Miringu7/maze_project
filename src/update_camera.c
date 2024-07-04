@@ -1,5 +1,15 @@
 #include "../inc/main.h"
 
+/**
+ * updateCameraPosition - Updates the camera position based on user input
+ * @moveSpeed: The speed at which the camera moves
+ *
+ * Description: This function handles the camera movement based on the
+ * key presses for 'W', 'A', 'S', and 'D'. It checks for collisions
+ * with the walls of the world map and ensures the camera does not
+ * move out of bounds.
+ * Return: void
+ */
 void updateCameraPosition(double moveSpeed)
 {
     // Handle movement based on keys pressed

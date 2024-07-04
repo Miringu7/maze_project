@@ -5,10 +5,18 @@ SDL_Window *gWindow = NULL;
 SDL_Renderer *gRenderer = NULL;
 TTF_Font *gFont = NULL;
 
+/**
+ * main - Entry point for the raycasting SDL application
+ * @argc: Argument count
+ * @args: Argument vector
+ *
+ * Description: Initializes the SDL, loads textures, handles the main event
+ * loop and renders the game screen. Also, it handles the cleaning up of
+ * resources before exiting.
+ * Return: 0 on success, 1 on incorrect usage, -1 on initialization failure
+ */
 int main(int argc, char *args[])
 {
-    //(void)argc;
-    //(void)args;
     if (argc != 2)
     {
         fprintf(stderr, "Usage: %s <map file>\n", args[0]);
@@ -18,21 +26,23 @@ int main(int argc, char *args[])
     const char *mapFile = args[1];
     loadMap(mapFile);
 
-    // if (!initSDL(gWindow, gRenderer, gFont))
     if (!initSDL())
     {
         fprintf(stderr, "Failed to initialize!\n");
         return -1;
     }
+
     SDL_Surface *textures[8];    // Array to hold textures
     SDL_Surface *groundTexture;  // Ground texture
     SDL_Surface *ceilingTexture; // Ceiling texture
-    // SDL_Texture *textureWall; // SDL texture for walls
     SDL_Texture *wallTextures[8];
     SDL_Texture *groundTex;
     SDL_Texture *ceilingTex;
     SDL_Texture *weaponTextures[NUM_WEAPONS];
 
+    int isRaining = 0; // State to check if it's raining
+
+    // Load textures
     textures[0] = IMG_Load("./src/textures/texture4.jpeg");
     textures[1] = IMG_Load("./src/textures/texture4.jpeg");
     textures[2] = IMG_Load("./src/textures/texture4.jpeg");
@@ -55,31 +65,23 @@ int main(int argc, char *args[])
     {
         wallTextures[i] = SDL_CreateTextureFromSurface(gRenderer, textures[i]);
         SDL_FreeSurface(textures[i]);
-        //  Free the surface after creating the texture
     }
 
     groundTex = SDL_CreateTextureFromSurface(gRenderer, groundTexture);
-    SDL_FreeSurface(groundTexture); // free the surface after creation
+    SDL_FreeSurface(groundTexture);
 
     ceilingTex = SDL_CreateTextureFromSurface(gRenderer, ceilingTexture);
-    SDL_FreeSurface(ceilingTexture); // free the surface after creation
-
-    // SDL_EnableKeyRepeat(0, 0);
-
-    // rotateCamera(3.142 / 4);
+    SDL_FreeSurface(ceilingTexture);
 
     loadWeaponTextures(gRenderer, weaponTextures);
 
     bool quit = false;
     SDL_Event e;
 
-    // Uint32 startTicks, frameTicks;
     double oldTime = 0, time = 0, frameTime;
-    // int fps = 0;
 
     while (!quit)
     {
-        // startTicks = SDL_GetTicks();
         frameTime = (time - oldTime) / 1000.0;
         oldTime = time;
 
@@ -99,10 +101,13 @@ int main(int argc, char *args[])
                 {
                     currentWeapon = (currentWeapon + 1) % NUM_WEAPONS;
                 }
-                // Handle rotation here (Task 2)
+                else if (e.key.keysym.sym == SDLK_r)
+                {
+                    isRaining = !isRaining;
+                }
                 else if (e.key.keysym.sym == SDLK_LEFT)
                 {
-                    // rotate left
+                    // Rotate left
                     double oldDirX = dirX;
                     dirX = dirX * cos(0.1) - dirY * sin(0.1);
                     dirY = oldDirX * sin(0.1) + dirY * cos(0.1);
@@ -112,7 +117,7 @@ int main(int argc, char *args[])
                 }
                 else if (e.key.keysym.sym == SDLK_RIGHT)
                 {
-                    // rotate right
+                    // Rotate right
                     double oldDirX = dirX;
                     dirX = dirX * cos(-0.1) - dirY * sin(-0.1);
                     dirY = oldDirX * sin(-0.1) + dirY * cos(-0.1);
@@ -123,24 +128,16 @@ int main(int argc, char *args[])
             }
         }
 
-        // redrawScreen(fps, gRenderer, gFont);
         updateCameraPosition(moveSpeed);
         drawFloorAndCeiling(gRenderer, groundTex, ceilingTex);
         redrawScreen(frameTime, gRenderer, gFont, wallTextures, weaponTextures);
-
-        // if (frameTicks < 1000 / 60)
-        //{
-        // SDL_Delay(1000 / 60 - frameTicks);
-        //}
-
-        // fps = 1 / frameTicks;
     }
 
     for (int w = 0; w < NUM_WEAPONS; w++)
     {
         SDL_DestroyTexture(weaponTextures[w]);
     }
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 8; ++i)
     {
         SDL_DestroyTexture(wallTextures[i]);
     }
@@ -150,7 +147,14 @@ int main(int argc, char *args[])
     return 0;
 }
 
-// bool initSDL(SDL_Window *gWindow, SDL_Renderer *gRenderer, TTF_Font *gFont)
+/**
+ * initSDL - Initializes SDL, creates a window and renderer, and loads the font
+ *
+ * Description: This function initializes the SDL library, creates the window and
+ * renderer, and initializes the SDL_ttf library for font rendering. It also loads
+ * the specified font to be used in the game.
+ * Return: true if initialization was successful, false otherwise
+ */
 bool initSDL()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
