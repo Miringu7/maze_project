@@ -1,11 +1,13 @@
 #include "../inc/main.h"
 
-void drawVerticalLine(int x, int y1, int y2, ColorRGB color, SDL_Renderer *gRenderer, WallOrientation orientation)
+// void drawVerticalLine(int x, int y1, int y2, ColorRGB color, SDL_Renderer *gRenderer, WallOrientation orientation)
+void drawVerticalLine(int x, int y1, int y2, SDL_Renderer *gRenderer, WallOrientation orientation, ColorRGB color)
 {
     // SDL_SetRenderDrawColor(gRenderer, color.r, color.g, color.b, 255);
     // SDL_RenderDrawLine(gRenderer, x, y1, x, y2);
 
     // Adjust color based on orientation
+
     if (orientation == NORTH_SOUTH)
     {
         // Set color for walls facing north-south
@@ -17,6 +19,7 @@ void drawVerticalLine(int x, int y1, int y2, ColorRGB color, SDL_Renderer *gRend
         // SDL_SetRenderDrawColor(gRenderer, color.r / 2, color.g / 2, color.b / 2, 255);
         SDL_SetRenderDrawColor(gRenderer, color.r, color.g, color.b, 255);
     }
+    // SDL_Rect wallRect = {x, drawStart, 1, drawEnd - drawStart};
 
     SDL_RenderDrawLine(gRenderer, x, y1, x, y2);
 }

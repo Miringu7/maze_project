@@ -24,6 +24,43 @@ int main(int argc, char *args[])
         fprintf(stderr, "Failed to initialize!\n");
         return -1;
     }
+    SDL_Surface *textures[8];    // Array to hold textures
+    SDL_Surface *groundTexture;  // Ground texture
+    SDL_Surface *ceilingTexture; // Ceiling texture
+    // SDL_Texture *textureWall; // SDL texture for walls
+    SDL_Texture *wallTextures[8];
+    SDL_Texture *groundTex;
+    SDL_Texture *ceilingTex;
+    textures[0] = IMG_Load("./src/textures/texture4.jpeg");
+    textures[1] = IMG_Load("./src/textures/texture4.jpeg");
+    textures[2] = IMG_Load("./src/textures/texture4.jpeg");
+    textures[3] = IMG_Load("./src/textures/texture4.jpeg");
+    textures[4] = IMG_Load("./src/textures/texture4.jpeg");
+    textures[5] = IMG_Load("./src/textures/texture4.jpeg");
+    textures[6] = IMG_Load("./src/textures/texture4.jpeg");
+    textures[7] = IMG_Load("./src/textures/texture4.jpeg");
+
+    groundTexture = IMG_Load("./src/textures/ground2.jpg");
+    ceilingTexture = IMG_Load("./src/textures/sky.jpg");
+
+    if (!textures[0] || !textures[1] || !textures[2] || !textures[3] || !textures[4] || !textures[5])
+    {
+        printf("Failed to load textures! SDL_image Error: %s\n", IMG_GetError());
+        return -1;
+    }
+
+    for (int i = 0; i < 8; ++i)
+    {
+        wallTextures[i] = SDL_CreateTextureFromSurface(gRenderer, textures[i]);
+        SDL_FreeSurface(textures[i]);
+        //  Free the surface after creating the texture
+    }
+
+    groundTex = SDL_CreateTextureFromSurface(gRenderer, groundTexture);
+    SDL_FreeSurface(groundTexture); // free the surface after creation
+
+    ceilingTex = SDL_CreateTextureFromSurface(gRenderer, ceilingTexture);
+    SDL_FreeSurface(ceilingTexture); // free the surface after creation
 
     // SDL_EnableKeyRepeat(0, 0);
 
@@ -80,7 +117,8 @@ int main(int argc, char *args[])
 
         // redrawScreen(fps, gRenderer, gFont);
         updateCameraPosition(moveSpeed);
-        redrawScreen(frameTime, gRenderer, gFont);
+        drawFloorAndCeiling(gRenderer, groundTex, ceilingTex);
+        redrawScreen(frameTime, gRenderer, gFont, wallTextures);
 
         // if (frameTicks < 1000 / 60)
         //{
@@ -90,6 +128,12 @@ int main(int argc, char *args[])
         // fps = 1 / frameTicks;
     }
 
+    for (int i = 0; i < 4; ++i)
+    {
+        SDL_DestroyTexture(wallTextures[i]);
+    }
+    SDL_DestroyTexture(groundTex);
+    SDL_DestroyTexture(ceilingTex);
     closeSDL(gWindow, gRenderer, gFont);
     return 0;
 }

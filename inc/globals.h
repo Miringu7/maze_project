@@ -28,4 +28,5 @@ extern double dirX, dirY;
 extern double planeX, planeY;
 extern double moveSpeed;
 
+
 #endif // GLOBALS_H

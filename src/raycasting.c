@@ -1,6 +1,6 @@
 #include "../inc/main.h"
 
-void castRays(SDL_Renderer *gRenderer)
+void castRays(SDL_Renderer *gRenderer, SDL_Texture **wallTextures)
 {
     for (int x = 0; x < SCREEN_WIDTH; x++)
     {
@@ -81,19 +81,23 @@ void castRays(SDL_Renderer *gRenderer)
         switch (worldMap[mapX][mapY])
         {
         case 1:
-            color = (ColorRGB){255, 0, 0};
+            // color = (ColorRGB){255, 0, 0};
+            color = (ColorRGB){255, 255, 255};
             break;
         case 2:
-            color = (ColorRGB){0, 255, 0};
+            // color = (ColorRGB){0, 255, 0};
+            color = (ColorRGB){255, 255, 255};
             break;
         case 3:
-            color = (ColorRGB){0, 0, 255};
+            // color = (ColorRGB){0, 0, 255};
+            color = (ColorRGB){255, 255, 255};
             break;
         case 4:
             color = (ColorRGB){255, 255, 255};
             break;
         default:
-            color = (ColorRGB){255, 255, 0};
+            // color = (ColorRGB){255, 255, 0};
+            color = (ColorRGB){255, 255, 255};
             break;
         }
 
@@ -111,6 +115,9 @@ void castRays(SDL_Renderer *gRenderer)
         else
             orientation = NORTH_SOUTH; // Facing north-south
 
-        drawVerticalLine(x, drawStart, drawEnd, color, gRenderer, orientation);
+        // drawVerticalLine(x, drawStart, drawEnd, color, gRenderer, orientation);
+        drawVerticalLine(x, drawStart, drawEnd, gRenderer, orientation, color);
+        SDL_Rect wallRect = {x, drawStart, 1, drawEnd - drawStart};
+        SDL_RenderCopy(gRenderer, wallTextures[worldMap[mapX][mapY] - 1], NULL, &wallRect);
     }
 }
