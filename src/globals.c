@@ -10,3 +10,4 @@ double moveSpeed = 0.5;           // Adjust movement speed as necessary
 
 // SDL_Texture *textureWall; // SDL texture for walls
 // SDL_Texture *wallTextures[4];
+int currentWeapon = 0;

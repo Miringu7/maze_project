@@ -31,6 +31,8 @@ int main(int argc, char *args[])
     SDL_Texture *wallTextures[8];
     SDL_Texture *groundTex;
     SDL_Texture *ceilingTex;
+    SDL_Texture *weaponTextures[NUM_WEAPONS];
+
     textures[0] = IMG_Load("./src/textures/texture4.jpeg");
     textures[1] = IMG_Load("./src/textures/texture4.jpeg");
     textures[2] = IMG_Load("./src/textures/texture4.jpeg");
@@ -40,7 +42,7 @@ int main(int argc, char *args[])
     textures[6] = IMG_Load("./src/textures/texture4.jpeg");
     textures[7] = IMG_Load("./src/textures/texture4.jpeg");
 
-    groundTexture = IMG_Load("./src/textures/ground2.jpg");
+    groundTexture = IMG_Load("./src/textures/ground5.jpg");
     ceilingTexture = IMG_Load("./src/textures/sky.jpg");
 
     if (!textures[0] || !textures[1] || !textures[2] || !textures[3] || !textures[4] || !textures[5])
@@ -65,6 +67,8 @@ int main(int argc, char *args[])
     // SDL_EnableKeyRepeat(0, 0);
 
     // rotateCamera(3.142 / 4);
+
+    loadWeaponTextures(gRenderer, weaponTextures);
 
     bool quit = false;
     SDL_Event e;
@@ -91,8 +95,12 @@ int main(int argc, char *args[])
                 {
                     quit = true;
                 }
+                else if (e.key.keysym.sym == SDLK_SPACE)
+                {
+                    currentWeapon = (currentWeapon + 1) % NUM_WEAPONS;
+                }
                 // Handle rotation here (Task 2)
-                if (e.key.keysym.sym == SDLK_LEFT)
+                else if (e.key.keysym.sym == SDLK_LEFT)
                 {
                     // rotate left
                     double oldDirX = dirX;
@@ -118,7 +126,7 @@ int main(int argc, char *args[])
         // redrawScreen(fps, gRenderer, gFont);
         updateCameraPosition(moveSpeed);
         drawFloorAndCeiling(gRenderer, groundTex, ceilingTex);
-        redrawScreen(frameTime, gRenderer, gFont, wallTextures);
+        redrawScreen(frameTime, gRenderer, gFont, wallTextures, weaponTextures);
 
         // if (frameTicks < 1000 / 60)
         //{
@@ -128,6 +136,10 @@ int main(int argc, char *args[])
         // fps = 1 / frameTicks;
     }
 
+    for (int w = 0; w < NUM_WEAPONS; w++)
+    {
+        SDL_DestroyTexture(weaponTextures[w]);
+    }
     for (int i = 0; i < 4; ++i)
     {
         SDL_DestroyTexture(wallTextures[i]);

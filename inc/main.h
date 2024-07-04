@@ -51,7 +51,7 @@ void castRays(SDL_Renderer *gRenderer, SDL_Texture **wallTextures);
 void renderTexture(SDL_Renderer *renderer, SDL_Texture *texture, int x, int y);
 void drawVerticalLine(int x, int y1, int y2, SDL_Renderer *gRenderer, WallOrientation orientation, ColorRGB color);
 // void drawVerticalLine(int x, int y1, int y2, SDL_Renderer *gRenderer, WallOrientation orientation, SDL_Texture **wallTextures, int mapX, int mapY);
-void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont, SDL_Texture **wallTextures);
+void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont, SDL_Texture **wallTextures, SDL_Texture *weaponTextures[]);
 TTF_Font *loadFont(const char *filePath, int fontSize);
 SDL_Surface *renderTextSurface(TTF_Font *font, const char *text, SDL_Color textColor);
 SDL_Texture *createTextureFromSurface(SDL_Renderer *renderer, SDL_Surface *surface);
@@ -60,5 +60,7 @@ void updateCameraPosition(double moveSpeed);
 void loadMap(const char *filename);
 void drawMinimap(SDL_Renderer *renderer);
 void drawFloorAndCeiling(SDL_Renderer *renderer, SDL_Texture *floorTexture, SDL_Texture *ceilingTexture);
+void loadWeaponTextures(SDL_Renderer *renderer, SDL_Texture *weaponTextures[]);
+void renderWeapon(SDL_Renderer *renderer, SDL_Texture *weaponTextures[]);
 
 #endif

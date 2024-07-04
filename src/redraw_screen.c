@@ -1,6 +1,6 @@
 #include "../inc/main.h"
 
-void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont, SDL_Texture **wallTextures)
+void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont, SDL_Texture **wallTextures, SDL_Texture *weaponTextures[])
 {
     // castRays(gRenderer);
     // renderFPS(frameTime, gRenderer, gFont);
@@ -26,6 +26,8 @@ void redrawScreen(float frameTime, SDL_Renderer *gRenderer, TTF_Font *gFont, SDL
 
     // draw minimap
     drawMinimap(gRenderer);
+
+    renderWeapon(gRenderer, weaponTextures);
 
     // Present everything
     SDL_RenderPresent(gRenderer);
