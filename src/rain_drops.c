@@ -1,5 +1,7 @@
 #include "../inc/main.h"
 
+Raindrop raindrops[NUM_RAINDROPS];
+
 /**
  * initializeRaindrops - Initializes the raindrops
  *
